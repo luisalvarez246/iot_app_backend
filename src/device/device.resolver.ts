@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { DeviceService } from './device.service';
-import { CreateDeviceInput } from './dto/create-device.input';
-import { UpdateDeviceInput } from './dto/update-device.input';
+import { CreateDeviceDto } from './dto/create-device.dto';
+import { UpdateDeviceDto } from './dto/update-device.dto';
 
 @Resolver('Device')
 export class DeviceResolver 
@@ -9,26 +9,27 @@ export class DeviceResolver
   constructor(private readonly deviceService: DeviceService) {}
 
   @Mutation('createDevice')
-  create(@Args('createDeviceInput') createDeviceInput: CreateDeviceInput) {
-    return this.deviceService.create(createDeviceInput);
+  async createDevice(@Args('createDeviceDto') createDeviceDto: CreateDeviceDto) 
+  {
+    return (await this.deviceService.create(createDeviceDto));
+  }
+
+  @Query('devices')
+  async findAll() 
+  {
+    return (await this.deviceService.findAll());
   }
 
   @Query('device')
-  findAll() 
+  async findOne(@Args('id') id: string) 
   {
-    return this.deviceService.findAll();
-  }
-
-  @Query('device')
-  findOne(@Args('id') id: number) 
-  {
-    return this.deviceService.findOne(id);
+    return (await this.deviceService.findOne(id));
   }
 
   @Mutation('updateDevice')
-  update(@Args('updateDeviceInput') updateDeviceInput: UpdateDeviceInput) 
+  update(@Args('updateDeviceDto') updateDeviceDto: UpdateDeviceDto) 
   {
-    return this.deviceService.update(updateDeviceInput.id, updateDeviceInput);
+    return this.deviceService.update(updateDeviceDto.id, updateDeviceDto);
   }
 
   @Mutation('removeDevice')

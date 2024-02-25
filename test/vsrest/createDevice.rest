@@ -1,0 +1,6 @@
+POST http://localhost:3000/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation { createDevice(createDeviceDto: { name: \"Sample Device\", mobileNumber: \"9876543210\", lastConnection: \"2024-02-25T08:30:00Z\", latitude: 37.7749, longitude: -122.4194 }) { id name mobileNumber lastConnection latitude longitude }}"
+}

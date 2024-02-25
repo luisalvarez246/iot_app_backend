@@ -1,0 +1,33 @@
+scalar Date
+
+type Device {
+    id: ID!
+    name: String!
+    mobileNumber: String
+    lastConnection: Date
+    latitude: Float!
+    longitude: Float!
+}
+
+input CreateDeviceDto {
+  name: String!
+  mobileNumber: String!
+  lastConnection: Date!
+  latitude: Float!
+  longitude: Float!
+}
+
+input UpdateDeviceDto {
+  id: ID!
+}
+
+type Query {
+  devices: [Device]!
+  device(id: ID!): Device
+}
+
+type Mutation {
+  createDevice(createDeviceDto: CreateDeviceDto!): Device!
+  updateDevice(updateDeviceDto: UpdateDeviceDto!): Device!
+  removeDevice(id: ID!): Device
+}

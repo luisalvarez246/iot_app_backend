@@ -13,11 +13,6 @@ import { GraphQLDateTime } from 'graphql-scalars';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
 	  typePaths: ['./**/*.graphql'],
-	//   definitions: {
-	// 	path: join(process.cwd(), 'src/graphql.ts'),
-	// 	outputAs: 'class',
-	//   },
-      // Optional: If you need to specify global GraphQL Scalars like DateTime
       resolvers: { Date: GraphQLDateTime },
     }),
 	MongooseModule.forRoot(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.bhc6bmu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`),

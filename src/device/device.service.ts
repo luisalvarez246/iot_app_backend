@@ -1,26 +1,38 @@
+import { Model } from 'mongoose'
 import { Injectable } from '@nestjs/common';
-import { CreateDeviceInput } from './dto/create-device.input';
-import { UpdateDeviceInput } from './dto/update-device.input';
+import { InjectModel } from '@nestjs/mongoose';
+import { CreateDeviceDto } from './dto/create-device.dto';
+import { UpdateDeviceDto } from './dto/update-device.dto';
+import { Device } from './schemas/device.schema';
 
 @Injectable()
-export class DeviceService {
-  create(createDeviceInput: CreateDeviceInput) {
-    return 'This action adds a new device';
-  }
+export class DeviceService 
+{
+	constructor(@InjectModel(Device.name) private deviceModel: Model<Device>,) {};
 
-  findAll() {
-    return `This action returns all device`;
-  }
+	async create(createDeviceDto: CreateDeviceDto): Promise<Device>
+	{
+		const createdDevice = new this.deviceModel(createDeviceDto);
+		return (createdDevice.save());
+	}	
 
-  findOne(id: number) {
-    return `This action returns a #${id} device`;
-  }
+	async findAll() 
+	{
+	  return (this.deviceModel.find({}).exec());
+	}	
 
-  update(id: number, updateDeviceInput: UpdateDeviceInput) {
-    return `This action updates a #${id} device`;
-  }
+	async findOne(id: string) 
+	{
+		return this.deviceModel.findOne({ _id: id }).exec();
+	}	
 
-  remove(id: number) {
-    return `This action removes a #${id} device`;
-  }
+	update(id: string, updateDeviceDto: UpdateDeviceDto) 
+	{
+	  return `This action updates a #${id} device`;
+	}	
+
+	remove(id: number) 
+	{
+	  return `This action removes a #${id} device`;
+	}
 }

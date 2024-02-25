@@ -1,0 +1,6 @@
+POST http://localhost:3000/graphql
+Content-Type: application/json
+
+{
+  "query": "query { device(id: \"65db557ce81aa665cd103c58\") { id name mobileNumber lastConnection latitude longitude }}"
+}
