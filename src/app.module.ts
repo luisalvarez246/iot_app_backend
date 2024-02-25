@@ -1,11 +1,11 @@
-import { Module } from '@nestjs/common';
+import { Module, OnApplicationBootstrap } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { join } from 'path';
 import { MongooseModule } from '@nestjs/mongoose';
 import { DeviceModule } from './device/device.module';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLDateTime } from 'graphql-scalars';
+import { DeviceService } from './device/device.service';
 
 @Module({
   imports: [
@@ -19,4 +19,12 @@ import { GraphQLDateTime } from 'graphql-scalars';
     DeviceModule,
   ],
 })
-export class AppModule {}
+export class AppModule implements OnApplicationBootstrap 
+{
+	constructor(private readonly deviceService: DeviceService) {};
+
+	async onApplicationBootstrap() 
+	{
+		await this.deviceService.initializeDevices();	
+	}
+}

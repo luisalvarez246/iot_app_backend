@@ -1,4 +1,4 @@
-POST http://localhost:3000/graphql
+POST http://localhost:3001/graphql
 Content-Type: application/json
 
 {

@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { CreateDeviceDto } from './dto/create-device.dto';
 import { UpdateDeviceDto } from './dto/update-device.dto';
 import { Device } from './schemas/device.schema';
+import { seedData } from 'seed.data';
 
 @Injectable()
 export class DeviceService 
@@ -13,7 +14,7 @@ export class DeviceService
 	async create(createDeviceDto: CreateDeviceDto): Promise<Device>
 	{
 		const createdDevice = new this.deviceModel(createDeviceDto);
-		return (createdDevice.save());
+		return (await createdDevice.save());
 	}	
 
 	async findAll() 
@@ -34,5 +35,15 @@ export class DeviceService
 	remove(id: number) 
 	{
 	  return `This action removes a #${id} device`;
+	}
+
+	async initializeDevices()
+	{
+		const countDevices = await this.deviceModel.countDocuments().exec();
+
+		if (countDevices < 10)
+		{
+			await this.deviceModel.insertMany(seedData);
+		}
 	}
 }

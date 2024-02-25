@@ -7,5 +7,6 @@ import { Device, DeviceSchema } from './schemas/device.schema';
 @Module({
 	imports: [MongooseModule.forFeature([{ name: Device.name, schema: DeviceSchema }])],
   	providers: [DeviceResolver, DeviceService],
+	exports: [DeviceService],
 })
 export class DeviceModule {}
