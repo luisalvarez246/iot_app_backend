@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path'
+import { DeviceModule } from './device/device.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { join } from 'path'
 		path: join(process.cwd(), 'src/graphql.ts'),
 	  },
     }),
+    DeviceModule,
   ],
 })
 export class AppModule {}

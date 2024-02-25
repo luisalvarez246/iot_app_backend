@@ -1,0 +1,28 @@
+type Device {
+    id: ID!
+    name: String!
+    mobileNumber: String
+    lastConnection: String
+    latitude: Float!
+    longitude: Float!
+}
+
+input CreateDeviceInput {
+  # Example field (placeholder)
+  exampleField: Int
+}
+
+input UpdateDeviceInput {
+  id: ID!
+}
+
+type Query {
+  device: [Device]!
+  device(id: ID!): Device
+}
+
+type Mutation {
+  createDevice(createDeviceInput: CreateDeviceInput!): Device!
+  updateDevice(updateDeviceInput: UpdateDeviceInput!): Device!
+  removeDevice(id: Int!): Device
+}
