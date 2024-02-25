@@ -1,0 +1,12 @@
+type Device {
+    id: ID!
+    name: String!
+    mobileNumber: String
+    lastConnection: String
+    latitude: Float!
+    longitude: Float!
+}
+
+type Query {
+	device(id: ID!): Device
+}
